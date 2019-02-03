@@ -12,6 +12,12 @@ shotty uses the configuration file created by AWS cli e.g
 
 `aws configure --profile shotty`
 
+#Required modules to run in pipenv
+
+`pipenv install boto3`
+`pipenv install click`
+`pipenv lock`
+
 ## Running
 
 `pipenv run pything shotty.py <command> <--project=PROJECT>:`
