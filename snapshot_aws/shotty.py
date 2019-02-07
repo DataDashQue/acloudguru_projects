@@ -83,24 +83,28 @@ def create_snapshot(project):
     instances = filter_instances(project)
 
     for i in instances:
+        print("Stopping {0}...".format(i.id))
+        
         i.stop()
+        i.wait_until_stopped()
         for v in i.volumes.all():
             print("Creating snapshot of {0}".format(v.id))
             v.create_snapshot(Description="Created by SnapshotAlyzer 5000")
- 
-#    print("Stopping {0}...".format(i.id))
- 
-#    i.stop()
- #   i.wait_until_stopped()
- 
-#    for v in i.volumes.all():
-#        print("Creating snapshot of {0}".format(v.id))
-#        v.create_snapshot(Description="Created by SnapshotAlyzer 5000")
- 
-#    i.start()
-#    i.wait_until_running
+        i.start()
+        i.wait_until_running
     
-#    print("Job has completed!")
+ 
+    i.stop()
+    i.wait_until_stopped()
+ 
+    for v in i.volumes.all():
+        print("Creating snapshot of {0}".format(v.id))
+        v.create_snapshot(Description="Created by SnapshotAlyzer 5000")
+
+    i.start()
+    i.wait_until_running
+
+    print("Job has completed!")
 
     return
 
